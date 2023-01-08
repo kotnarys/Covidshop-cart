@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import { render } from "react-dom";
+import Shop from "./Shop";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+function App() {
+  const [login, setLogin] = useState(false);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  if (login) {
+    return (
+      <>
+        <Shop />
+        <button className="btn" onClick={() => setLogin(false)}>
+          Выйти
+        </button>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <h2>Нужно залогиниться!</h2>
+        <button className="btn" onClick={() => setLogin(true)}>
+          Войти
+        </button>
+      </>
+    );
+  }
+}
+
+render(<App />, document.querySelector("#root"));

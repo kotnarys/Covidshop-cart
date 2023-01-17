@@ -10,7 +10,7 @@ useEffect(() => {
   get("https://learn.guidedao.xyz/api/student/products")
   .then(data => setItem(data))
   .catch(error => console.error(error))
-}, [])
+}, [get])
 
 
 

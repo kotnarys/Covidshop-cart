@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Item from "./Item.js";
+import useFetch from "./useFetch.js"
 
 export default function Shop() {
   const [item, setItem] = useState("");
+  const {get, loader} = useFetch();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(
-          "  https://learn.guidedao.xyz/api/student/products"
-        );
-        const data = await response.json();
-        if (data) {
-          setItem(data);
-        }
-      } catch (err) {
-        console.error({ err });
-      }
-    })();
-  }, []);
+useEffect(() => {
+  get("https://learn.guidedao.xyz/api/student/products")
+  .then(data => setItem(data))
+  .catch(error => console.error(error))
+}, [])
+
+
 
   if (!item) {
     return null;
@@ -26,8 +20,7 @@ export default function Shop() {
 
   return (
     <>
-      <Item info={item[0][0]} />
-      <div className="shop"></div>
+    {loader ? "Loading..." : <><Item info={item[0][0]} />  <div className="shop"></div></>   }
     </>
   );
 }

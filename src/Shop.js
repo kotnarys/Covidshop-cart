@@ -12,8 +12,6 @@ useEffect(() => {
   .catch(error => console.error(error))
 }, [get])
 
-
-
   if (!item) {
     return null;
   }
